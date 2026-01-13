@@ -1062,6 +1062,24 @@ function registerCloseContextMenuOnPage() {
     document.addEventListener("click", closeContextMenu);
 }
 
+function removeConflictJQuery() {
+    const observer = new MutationObserver((mutations) => {
+        for (const mut of mutations) {
+            for (const node of mut.addedNodes) {
+                if (node.nodeType === 1 && node.tagName === 'SCRIPT') {
+                    const src = node.src || '';
+                    if (src.includes('upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js')) {
+                        console.log('[Tampermonkey] Blocked jQuery 2.0.2:', src);
+                        node.remove();
+                    }
+                }
+            }
+        }
+    });
+
+    observer.observe(document, { childList: true, subtree: true });
+}
+
 export {
     initializeLogoNavigation,
     ensureSidebarVisible,
@@ -1077,4 +1095,5 @@ export {
     insertHTMLForDebug,
     removeEmptyTableRows,
     customizeIaaaRememberCheckbox,
+    removeConflictJQuery,
 };

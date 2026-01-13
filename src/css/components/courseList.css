@@ -43,6 +43,10 @@
 /*	background: var(--c-hover);*/
 /*}*/
 
+.inventory>tbody .gray td,.inventory>tbody .gray th {
+    background: var(--c-hover);
+}
+
 /*每行行首行尾圆角*/
 #listContainer_databody > tr > *:first-child {
     border-radius: 5px 0 0 5px;
