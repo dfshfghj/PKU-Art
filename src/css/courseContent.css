@@ -233,6 +233,12 @@ nav.navigationPane:after {
     z-index: 20;
 }
 
+@media (max-width: 1037px) { 
+    .locationPane nav {
+        margin-top: 80px;
+    }
+}
+
 #menuWrap {
     border-right: 1px solid var(--c-border);
 }

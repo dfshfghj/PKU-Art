@@ -242,6 +242,7 @@ body .global-nav-bar-wrap {
     body .global-nav-bar-wrap {
         right: 0;
         justify-content: normal;
+        top: 25px;
     }
 
     .global-nav-bar-wrap-mobile-nav {
@@ -267,5 +268,10 @@ body .global-nav-bar-wrap {
         position: absolute;
         top: 25px;
         left: auto;
+    }
+
+    #globalNavPageNavArea {
+        height: 80px;
+        background-position-y: 40px !important;
     }
 }

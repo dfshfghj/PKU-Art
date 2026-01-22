@@ -127,6 +127,7 @@ nav.navigationPane {
 @media (max-width: 480px) {
     #side_nav.side-nav {
         padding: 0;
+        padding-top: 20px;
     }
 
     #side_nav #mybbListTools li[id*='MyGrades'] span.menu-icon {
