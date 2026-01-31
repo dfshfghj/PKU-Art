@@ -85,11 +85,16 @@ table.bouncer,
     .path li.root, .simplePath li {
         padding-right: 0;
         margin-right: 0;
+        display: flex;
+        justify-content: center;
+        margin: 0 10px;
     }
 
     .coursePath * {
         padding: 0 !important;
         margin: 0 !important;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 
@@ -185,6 +190,11 @@ body > div.cmdiv ul li a:hover {
 .locationPane {
     min-height: 100%;
 }
+
+.locationPane {
+    padding-bottom: calc(var(--safe-area-inset-bottom, 0px) + 60px);
+}
+
 #globalNavPageNavArea {
     flex-shrink: 0;
 }
@@ -235,7 +245,7 @@ nav.navigationPane:after {
 
 @media (max-width: 1037px) { 
     .locationPane nav {
-        margin-top: 80px;
+        margin-top: calc(60px + var(--safe-area-inset-top, 0px));
     }
 }
 
@@ -278,25 +288,8 @@ nav.navigationPane:after {
 }
 
 @media (max-width: 1037px) { 
-    #menuWrap > #puller {
-        -webkit-tap-highlight-color: transparent;
-        background: var(--gray-5);
-        border: 1px solid var(--c-border);
-        backdrop-filter: blur(8px) saturate(120%);
-    }
-
     #puller.pullcollapsed {
-        opacity: 0.6;
-        height: 40px;
-        width: 40px;
-        top: 80px;
-        left: -20px;
-    }
-
-    #puller.pullcollapsed a:after {
-        top: -3px;
-        left: 20px !important;
-        color: var(--c-navbar);
+        display: none;
     }
 
     #puller:not(.pullcollapsed) {

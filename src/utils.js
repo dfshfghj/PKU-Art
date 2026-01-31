@@ -1,4 +1,4 @@
-import { downloadIcon, linkIcon, sparkIcon, refreshIcon, closeIcon, homeIcon, gradeIcon, notificationIcon, announcementIcon } from './icon.js';
+import { downloadIcon, linkIcon, sparkIcon, refreshIcon, closeIcon, homeIcon, gradeIcon, notificationIcon, announcementIcon, menuIcon } from './icon.js';
 import '@saurl/tauri-plugin-safe-area-insets-css-api';
 // Other utilities
 function initializeLogoNavigation() {
@@ -1140,6 +1140,62 @@ function formatAnnouncementTime() {
 
     initializeObserver();
 }
+function initializeMenuToggleButton() {
+    function checkMenuPullerExists() {
+        return document.querySelector('#menuPuller') !== null;
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkMenuPullerExists()) {
+                addMenuToggleButton();
+            }
+        });
+        return;
+    }
+
+    if (!checkMenuPullerExists()) {
+        return;
+    }
+
+    function addMenuToggleButton() {
+        const navWrap = document.querySelector('.global-nav-bar-wrap');
+        if (!navWrap) {
+            setTimeout(addMenuToggleButton, 100);
+            return;
+        }
+
+        if (navWrap.querySelector('.pku-art-menu-toggle-bar')) {
+            return;
+        }
+
+        const spacer = document.createElement('div');
+        spacer.className = 'pku-art-menu-spacer';
+        spacer.style.flex = '1 1 auto';
+        spacer.style.minWidth = '20px';
+
+        const menuToggleBar = document.createElement('div');
+        menuToggleBar.className = 'pku-art-menu-toggle-bar global-nav-bar';
+        menuToggleBar.title = '展开侧边栏菜单';
+
+        const menuToggleButton = document.createElement('button');
+        menuToggleButton.className = 'pku-art-menu-toggle';
+        menuToggleButton.type = 'button';
+        menuToggleButton.innerHTML = menuIcon;
+
+        menuToggleButton.addEventListener('click', () => {
+            const menuPuller = document.querySelector('#menuPuller');
+            if (menuPuller) {
+                menuPuller.click();
+            }
+        });
+
+        menuToggleBar.appendChild(menuToggleButton);
+        navWrap.appendChild(spacer);
+        navWrap.appendChild(menuToggleBar);
+    }
+    addMenuToggleButton();
+}
 
 function removeConflictJQuery() {
     const observer = new MutationObserver((mutations) => {
@@ -1345,6 +1401,7 @@ export {
     removeConflictJQuery,
     initializeBottomNavigationBar,
     formatAnnouncementTime,
+    initializeMenuToggleButton,
     convertBlankLinksToTop,
     setViewportMeta,
 };

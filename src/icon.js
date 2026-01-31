@@ -22,4 +22,6 @@ const notificationIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" hei
 
 const announcementIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>`;
 
-export { sunIcon, moonIcon, autoIcon, sparkIcon, downloadIcon, linkIcon, refreshIcon, closeIcon, homeIcon, gradeIcon, notificationIcon, announcementIcon };
+const menuIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+
+export { sunIcon, moonIcon, autoIcon, sparkIcon, downloadIcon, linkIcon, refreshIcon, closeIcon, homeIcon, gradeIcon, notificationIcon, announcementIcon, menuIcon };
