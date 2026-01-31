@@ -1063,6 +1063,65 @@ function registerCloseContextMenuOnPage() {
     document.addEventListener("click", closeContextMenu);
 }
 
+function formatAnnouncementTime() {
+    function processTimeElements() {
+        const timeSpans = document.querySelectorAll('.details > p > span');
+        
+        timeSpans.forEach(span => {
+            const originalText = span.textContent.trim();
+            if (originalText.includes('发布时间:')) {
+                const formattedText = formatChineseDateTime(originalText);
+                if (formattedText !== originalText) {
+                    span.textContent = formattedText;
+                }
+            }
+        });
+    }
+
+    function formatChineseDateTime(text) {
+        const match = text.match(/发布时间:\s*(\d{4})年(\d{1,2})月(\d{1,2})日\s+(星期[一二三四五六日])\s+([上下]午)(\d{1,2})时(\d{1,2})分(\d{1,2})秒\s+(.+)/);
+        
+        if (match) {
+            const [, year, month, day, weekday, period, hour, minute, second, timezone] = match;
+            
+            let formattedHour = parseInt(hour, 10);
+            let ampm = period === '上午' ? 'AM' : 'PM';
+            
+            if (period === '下午' && formattedHour !== 12) {
+                formattedHour += 12;
+            } else if (period === '上午' && formattedHour === 12) {
+                formattedHour = 0;
+            }
+            
+            const hour24 = String(formattedHour).padStart(2, '0');
+            return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} ${weekday} ${hour24}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')} ${ampm} ${timezone}`;
+        }
+        
+        return text;
+    }
+
+    function initializeObserver() {
+        if (!document.body) {
+            document.addEventListener('DOMContentLoaded', initializeObserver);
+            return;
+        }
+
+        processTimeElements();
+        
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.type === 'childList') {
+                    processTimeElements();
+                }
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    initializeObserver();
+}
+
 function removeConflictJQuery() {
     const observer = new MutationObserver((mutations) => {
         for (const mut of mutations) {
@@ -1251,5 +1310,6 @@ export {
     customizeIaaaRememberCheckbox,
     removeConflictJQuery,
     initializeBottomNavigationBar,
+    formatAnnouncementTime,
     setViewportMeta,
 };
