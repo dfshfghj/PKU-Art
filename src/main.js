@@ -17,6 +17,10 @@ import {
     customizeIaaaRememberCheckbox,
     removeConflictJQuery,
     initializeBottomNavigationBar,
+    formatAnnouncementTime,
+    initializeMenuToggleButton,
+    initializePageTitleText,
+    convertBlankLinksToTop,
     setViewportMeta,
 } from './utils.js';
 
@@ -38,5 +42,9 @@ removeEmptyTableRows();
 customizeIaaaRememberCheckbox();
 removeConflictJQuery();
 initializeBottomNavigationBar();
+formatAnnouncementTime();
+initializeMenuToggleButton();
+initializePageTitleText();
+convertBlankLinksToTop();
 setViewportMeta();
 // insertHTMLForDebug();

@@ -1197,6 +1197,72 @@ function initializeMenuToggleButton() {
     addMenuToggleButton();
 }
 
+function initializePageTitleText() {
+    if (window.innerWidth >= 800) {
+        return;
+    }
+
+    if (!/^https:\/\/course\.pku\.edu\.cn\//.test(window.location.href)) {
+        return;
+    }
+
+    const urlTitleMap = [
+        {
+            pattern: /webapps\/blackboard\/execute\/announcement\?method=search&context=mybb&handle=my_announcements/,
+            title: '公告'
+        },
+        {
+            pattern: /webapps\/bb-social-learning-BBLEARN\/execute\/mybb\?cmd=display&toolId=AlertsOnMyBb_____AlertsTool/,
+            title: '通知'
+        },
+        {
+            pattern: /webapps\/bb-social-learning-BBLEARN\/execute\/mybb\?cmd=display&toolId=MyGradesOnMyBb_____MyGradesTool&extraParams=override_stream=mygrades/,
+            title: '成绩'
+        }
+    ];
+
+    let pageTitle = null;
+    for (const item of urlTitleMap) {
+        if (item.pattern.test(window.location.href)) {
+            pageTitle = item.title;
+            break;
+        }
+    }
+
+    if (!pageTitle) {
+        return;
+    }
+
+    function addPageTitleText() {
+        const navWrap = document.querySelector('.global-nav-bar-wrap');
+        if (!navWrap) {
+            setTimeout(addPageTitleText, 100);
+            return;
+        }
+
+        if (navWrap.querySelector('.pku-art-page-title-text')) {
+            return;
+        }
+
+        const titleElement = document.createElement('span');
+        titleElement.className = 'pku-art-page-title-text';
+        titleElement.textContent = pageTitle;
+        titleElement.style.flex = '1 1 auto';
+        titleElement.style.fontSize = '20px';
+        titleElement.style.fontWeight = 'bold';
+        titleElement.style.color = 'var(--c-text)';
+        titleElement.style.paddingLeft = '20px';
+
+        navWrap.appendChild(titleElement);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addPageTitleText);
+    } else {
+        addPageTitleText();
+    }
+}
+
 function removeConflictJQuery() {
     const observer = new MutationObserver((mutations) => {
         for (const mut of mutations) {
@@ -1403,5 +1469,6 @@ export {
     formatAnnouncementTime,
     initializeMenuToggleButton,
     convertBlankLinksToTop,
+    initializePageTitleText,
     setViewportMeta,
 };
