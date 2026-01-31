@@ -16,6 +16,7 @@ import {
     insertHTMLForDebug,
     customizeIaaaRememberCheckbox,
     removeConflictJQuery,
+    initializeBottomNavigationBar,
 } from './utils.js';
 
 applyStylesForCurrentPage();
@@ -35,4 +36,5 @@ formValueStorage();
 removeEmptyTableRows();
 customizeIaaaRememberCheckbox();
 removeConflictJQuery();
+initializeBottomNavigationBar();
 // insertHTMLForDebug();

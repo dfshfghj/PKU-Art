@@ -1,4 +1,4 @@
-import { downloadIcon, linkIcon, sparkIcon, refreshIcon, closeIcon } from './icon.js';
+import { downloadIcon, linkIcon, sparkIcon, refreshIcon, closeIcon, homeIcon, gradeIcon, notificationIcon, announcementIcon } from './icon.js';
 // Other utilities
 function initializeLogoNavigation() {
     if (!/^https:\/\/course\.pku\.edu\.cn\//.test(window.location.href)) {
@@ -1080,6 +1080,140 @@ function removeConflictJQuery() {
     observer.observe(document, { childList: true, subtree: true });
 }
 
+function initializeBottomNavigationBar() {
+    if (!/^https:\/\/course\.pku\.edu\.cn\//.test(window.location.href)) {
+        return;
+    }
+
+    try {
+        if (window.self !== window.top) {
+            return;
+        }
+    } catch (e) {
+        return;
+    }
+
+    let bottomNav = null;
+
+    const shouldShowBottomNav = () => {
+        return window.innerWidth < 1037;
+    };
+
+    const createBottomNav = () => {
+        if (bottomNav) {
+            return bottomNav;
+        }
+
+        bottomNav = document.createElement('div');
+        bottomNav.id = 'pkuArtBottomNav';
+        bottomNav.style.cssText = `
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--arco-color-bg-2, var(--c-navbar, #ffffff));
+            border-top: 1px solid var(--arco-color-border-2, var(--c-border, #e5e5e5));
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 9999;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            padding-bottom: var(--safe-area-inset-bottom);
+        `;
+
+        const navItems = [
+            { name: '主页', url: 'https://course.pku.edu.cn', icon: homeIcon },
+            { name: '成绩', url: 'https://course.pku.edu.cn/webapps/bb-social-learning-BBLEARN/execute/mybb?cmd=display&toolId=MyGradesOnMyBb_____MyGradesTool&extraParams=override_stream=mygrades', icon: gradeIcon },
+            { name: '通知', url: 'https://course.pku.edu.cn/webapps/bb-social-learning-BBLEARN/execute/mybb?cmd=display&toolId=AlertsOnMyBb_____AlertsTool', icon: notificationIcon },
+            { name: '公告', url: 'https://course.pku.edu.cn/webapps/blackboard/execute/announcement?method=search&context=mybb&handle=my_announcements&returnUrl=/webapps/portal/execute/tabs/tabAction?tab_tab_group_id=_1_1&tabId=_1_1&forwardUrl=index.jsp', icon: announcementIcon }
+        ];
+
+        navItems.forEach(item => {
+            const navLink = document.createElement('a');
+            navLink.href = item.url;
+            navLink.style.cssText = `
+                text-decoration: none;
+                color: var(--arco-color-text-1, var(--c-text, #333333));
+                font-size: 12px;
+                padding: 4px 8px;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                text-align: center;
+                flex: 1;
+                margin: 0 4px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+            `;
+            
+            const iconDiv = document.createElement('div');
+            iconDiv.innerHTML = item.icon;
+            iconDiv.style.fontSize = '0';
+
+            const textDiv = document.createElement('div');
+            textDiv.textContent = item.name;
+            
+            navLink.appendChild(iconDiv);
+            navLink.appendChild(textDiv);
+
+            navLink.addEventListener('mouseenter', () => {
+                navLink.style.backgroundColor = 'var(--arco-color-fill-2, var(--c-hover, #f5f5f5))';
+                navLink.style.color = 'var(--arco-color-primary, var(--c-primary, #165dff))';
+                iconDiv.querySelector('svg').style.fill = 'var(--arco-color-primary, var(--c-primary, #165dff))';
+            });
+            
+            navLink.addEventListener('mouseleave', () => {
+                navLink.style.backgroundColor = 'transparent';
+                navLink.style.color = 'var(--arco-color-text-1, var(--c-text, #333333))';
+                iconDiv.querySelector('svg').style.fill = 'currentColor';
+            });
+            
+            bottomNav.appendChild(navLink);
+        });
+
+        return bottomNav;
+    };
+
+    const updateBottomNavVisibility = () => {
+        if (shouldShowBottomNav()) {
+            if (!bottomNav) {
+                createBottomNav();
+            }
+            if (!document.getElementById('pkuArtBottomNav')) {
+                document.body.appendChild(bottomNav);
+            }
+            bottomNav.style.display = 'flex';
+        } else {
+            if (bottomNav && bottomNav.parentNode) {
+                bottomNav.style.display = 'none';
+            }
+        }
+    };
+
+    const initBottomNav = () => {
+        updateBottomNavVisibility();
+    };
+
+    if (document.body) {
+        initBottomNav();
+        return;
+    }
+
+    const observer = new MutationObserver(() => {
+        if (document.body) {
+        observer.disconnect();
+        initBottomNav();
+        }
+    });
+
+    observer.observe(document.documentElement, { childList: true });
+    window.addEventListener('resize', updateBottomNavVisibility);
+}
+
 export {
     initializeLogoNavigation,
     ensureSidebarVisible,
@@ -1096,4 +1230,5 @@ export {
     removeEmptyTableRows,
     customizeIaaaRememberCheckbox,
     removeConflictJQuery,
+    initializeBottomNavigationBar,
 };

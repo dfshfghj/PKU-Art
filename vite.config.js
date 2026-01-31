@@ -26,7 +26,7 @@ export default defineConfig({
             userscript: {
                 icon: 'http://cdn.arthals.ink/Arthals-mcskin.png',
                 namespace: 'arthals/pku-art',
-                name: 'PKU-Art',
+                name: 'PKU-Art-Mobile',
                 description: '给你一个足够好看的教学网。',
                 match: ['*://*.pku.edu.cn/*', '*://course.huh.moe/*'],
                 // local development
