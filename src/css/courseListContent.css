@@ -137,3 +137,9 @@
         width: auto;
     }
 }
+
+@media (max-width: 736px) {
+    #content_listContainer > li {
+        padding-top: 25px;
+    }
+}

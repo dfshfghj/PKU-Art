@@ -284,3 +284,18 @@ label[for='injectDownloadSwitch']:before {
     color: var(--cyan-6);
     transition: 0.1s;
 }
+
+@media (max-width: 1037px) { 
+    .course-info__header span {
+        font-size: 20px;
+    }
+
+    .course-info__wrapper .course-info__wrap {
+        width: auto;
+    }
+
+    .course-info__footer {
+        display: none !important;
+    }
+
+}

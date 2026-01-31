@@ -286,6 +286,15 @@ body div.lb-wrapper div.lb-content .container {
 }
 
 @media (max-width: 480px) {
+    body,
+    #streamDetail {
+        background: var(--gray-1) !important;
+    }
+
+    .stream-detail-page {
+        padding: 0 10px;
+    }
+
     #grades_wrapper > div {
         height: auto;
     }

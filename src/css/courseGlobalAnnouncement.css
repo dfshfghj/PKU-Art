@@ -51,12 +51,25 @@
     box-sizing: border-box;
     height: 30px;
     box-shadow: none;
-    /* margin-left: 20px; */
+    /* 隐藏文字 */
+    text-indent: -9999px;
+    overflow: hidden;
+    /* 添加搜索图标 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+    width: 30px;
+    min-width: 30px;
 }
 
 .announcementFilter a.genericButton:hover {
     background: var(--cyan-2);
     color: var(--cyan-6);
+    /* 确保悬停时图标颜色也变化 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300bcd4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .path li.root {
@@ -79,4 +92,12 @@
     .announcementFilter select#searchSelectId {
         width: 100%;
     }
+}
+
+@media (max-width: 800px) { 
+    #breadcrumbs,
+    #pageTitleDiv {
+        display: none;
+    }
+
 }

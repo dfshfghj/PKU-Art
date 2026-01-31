@@ -40,6 +40,14 @@ body {
     padding: 0;
 }
 
+.locationPane {
+    padding-bottom: var(--safe-area-inset-bottom, 0px);
+}
+
+#globalNavPageNavArea {
+    background: var(--c-navbar) var(--i-logo) no-repeat 2em center / auto 30px !important;
+}
+
 .container {
     margin: 0;
     padding: 0;
@@ -87,23 +95,27 @@ body {
     }
 }
 
-#column0:after {
-    content: 'PKU Art @ Arthals';
-    display: block;
-    background-color: var(--c-sidebar);
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--c-text);
-    height: 20px;
-    z-index: 99999;
-    opacity: 0.3;
-    visibility: visible !important;
+@media (min-width: 1038px) { 
+    #column0:after {
+        content: 'PKU Art @ Arthals';
+        display: block;
+        background-color: var(--c-sidebar);
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--c-text);
+        height: 20px;
+        z-index: 99999;
+        opacity: 0.3;
+        visibility: visible !important;
+    }
 }
+
 
 @media (max-width: 1037px) { 
     #column0 {
+        display: none;
         background: transparent;
     }
 
@@ -147,18 +159,20 @@ html #global-nav-bar-wrap {
     border: none;
 }
 
-#column0 > div:first-child h2:after {
-    z-index: 1;
-    content: '';
-    color: transparent;
-    visibility: visible;
-    display: block;
-    height: 10px;
-    position: relative;
-    top: 5px;
-    width: 60px;
-    border-radius: 50px;
-    background-color: var(--c-accent);
+@media (min-width: 1038px) {
+    #column0 > div:first-child h2:after {
+        z-index: 1;
+        content: '';
+        color: transparent;
+        visibility: visible;
+        display: block;
+        height: 10px;
+        position: relative;
+        top: 5px;
+        width: 60px;
+        border-radius: 50px;
+        background-color: var(--c-accent);
+    }
 }
 
 #column0 > div:first-child div.collapsible {
@@ -316,5 +330,6 @@ div.edit_controls > a:hover::before {
 @media (max-width: 1037px) {
     .containerPortal {
         flex-direction: column;
+        padding-bottom: 60px !important;
     }
 }
