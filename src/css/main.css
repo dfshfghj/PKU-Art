@@ -125,6 +125,14 @@
     /* --i-more: url('https://cdn.arthals.ink/css/src/more_dark.svg'); */
 }
 
+@media (max-width: 480px) {
+    :root,
+    :root.pku-art-light,
+    :root.pku-art-dark {
+        --c-border: transparent;
+    }
+}
+
 body,
 html {
     background: var(--c-background) !important;
