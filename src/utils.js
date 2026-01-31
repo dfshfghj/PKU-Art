@@ -1293,6 +1293,21 @@ function initializeBottomNavigationBar() {
     window.addEventListener('resize', updateBottomNavVisibility);
 }
 
+function convertBlankLinksToTop() {
+    function processLinks() {
+        const links = document.querySelectorAll('a[target="_blank"]');
+        links.forEach(link => {
+            link.target = '_top';
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', processLinks);
+    } else {
+        processLinks();
+    }
+}
+
 function setViewportMeta() {
     const existingViewport = document.querySelector('meta[name="viewport"]');
     if (existingViewport) {
@@ -1330,5 +1345,6 @@ export {
     removeConflictJQuery,
     initializeBottomNavigationBar,
     formatAnnouncementTime,
+    convertBlankLinksToTop,
     setViewportMeta,
 };
