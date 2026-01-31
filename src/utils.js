@@ -156,6 +156,25 @@ function removeCourseSerialNumbers() {
         }, 50);
     }
 
+    let alertCleanupTimer;
+    const stripAlertSerials = () => {
+        const courseLinks = document.querySelectorAll('#streamDetailHeaderRightClickable a , .stream_area_name, .coursePath a , a#courseMenu_link, .announcementInfo p');
+        courseLinks.forEach((courseLink) => {
+            courseLink.innerHTML = courseLink.innerHTML.replace(/\(\d+-\d+学年第\d学期\)/, '');
+        });
+        if (courseLinks.length !== 0 && alertCleanupTimer) {
+            clearInterval(alertCleanupTimer);
+        }
+    };
+
+    stripAlertSerials();
+    alertCleanupTimer = setInterval(() => {
+        const courseLinks = document.querySelectorAll('#streamDetailHeaderRightClickable a , .stream_area_name, .coursePath a , a#courseMenu_link, .announcementInfo p');
+        if (courseLinks.length !== 0) {
+            stripAlertSerials();
+        }
+    }, 50);
+
     const removeContextMenuSerials = () => {
         const contextMenuOpenLink = document.querySelector("#breadcrumbs .coursePath .courseArrow a")
         const doRemoveContextMenuSerials = () => {
