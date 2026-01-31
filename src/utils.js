@@ -1,4 +1,5 @@
 import { downloadIcon, linkIcon, sparkIcon, refreshIcon, closeIcon, homeIcon, gradeIcon, notificationIcon, announcementIcon } from './icon.js';
+import '@saurl/tauri-plugin-safe-area-insets-css-api';
 // Other utilities
 function initializeLogoNavigation() {
     if (!/^https:\/\/course\.pku\.edu\.cn\//.test(window.location.href)) {
@@ -1214,6 +1215,25 @@ function initializeBottomNavigationBar() {
     window.addEventListener('resize', updateBottomNavVisibility);
 }
 
+function setViewportMeta() {
+    const existingViewport = document.querySelector('meta[name="viewport"]');
+    if (existingViewport) {
+        existingViewport.remove();
+    }
+    
+    const viewportMeta = document.createElement('meta');
+    viewportMeta.name = 'viewport';
+    viewportMeta.content = 'width=device-width,initial-scale=1, user-scalable=0, viewport-fit=cover';
+
+    if (document.head) {
+        document.head.appendChild(viewportMeta);
+    } else {
+        document.addEventListener('DOMContentLoaded', () => {
+            document.head.appendChild(viewportMeta);
+        });
+    }
+}
+
 export {
     initializeLogoNavigation,
     ensureSidebarVisible,
@@ -1231,4 +1251,5 @@ export {
     customizeIaaaRememberCheckbox,
     removeConflictJQuery,
     initializeBottomNavigationBar,
+    setViewportMeta,
 };

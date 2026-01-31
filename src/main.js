@@ -17,6 +17,7 @@ import {
     customizeIaaaRememberCheckbox,
     removeConflictJQuery,
     initializeBottomNavigationBar,
+    setViewportMeta,
 } from './utils.js';
 
 applyStylesForCurrentPage();
@@ -37,4 +38,5 @@ removeEmptyTableRows();
 customizeIaaaRememberCheckbox();
 removeConflictJQuery();
 initializeBottomNavigationBar();
+setViewportMeta();
 // insertHTMLForDebug();
